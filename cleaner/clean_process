@@ -1,0 +1,12 @@
+#Step 1
+URL detection -> if comment contains URL then DELETE URL
+#Step 2
+If multiple sets of .!?-)/\:\S' are found reduce them to one
+#Step 3
+Fix smileys with multiple endings such as :-))))))
+#Step 4
+Cut into sentences
+#Step 5
+Language detection -> if not German then IGNORE
+#Step 6
+Pad Sentences with whitespaces around punctuations

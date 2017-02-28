@@ -1,11 +1,13 @@
-import mysql.connector as mariadb
-import langdetect as langdetect
 import re
-from langdetect.lang_detect_exception import LangDetectException
-import nltk.tokenize as nlp
 
-import urlmarker
-from config import local_host, local_user, local_password
+import langdetect as langdetect
+import mysql.connector as mariadb
+import nltk.tokenize as nlp
+from langdetect.lang_detect_exception import LangDetectException
+
+from cleaner import urlmarker
+from cleaner.cleaners import check_language
+from config.config import local_host, local_user, local_password
 
 try:
     # connect to db
@@ -37,13 +39,7 @@ try:
                 not_recognised) + "with url: " + str(with_url)
 
             # try to parse the language
-            try:
-                language = langdetect.detect(row[1])
-            except LangDetectException as error:
-                # if language cannot be determined by the package. Reject comment and move on
-                print "Lang not detected. Skipped: " + row[1]
-                not_recognised += 1
-                continue
+            lang = check_language()
 
             # if the language is german do some further parsing
             if language == 'de':
