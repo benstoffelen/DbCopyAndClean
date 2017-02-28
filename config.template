@@ -1,0 +1,13 @@
+## File containing all the configuration variables ##
+
+# database
+db_host =
+db_port =
+db_user =
+db_password =
+db_name =
+
+local_host =
+local_user =
+local_password =
+local_port =
