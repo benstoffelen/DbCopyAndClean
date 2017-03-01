@@ -23,6 +23,7 @@ class TestCleaners(unittest.TestCase):
         result = "vom 13. bis 16. mai findet in Coburg das 34. BMW Veteranentreffen statt,Infos auch unter"
         self.assertEqual(cleaner.clean_url(text), result)
 
+    @unittest.skip("testing skipping")
     def test_detect_language_langid(self):
         cleaner = Utilities()
         with open("comments.txt") as f:
@@ -54,8 +55,18 @@ class TestCleaners(unittest.TestCase):
     def test_clean_multiple_whitespaces(self):
         cleaner = Utilities()
         test1 = "UUU Nice Lets Play Rock n Roll  :))"
-        self.assertEqual(cleaner.clean_double_whitespaces(test1), "UUU Nice Lets Play Rock n Roll :))")
+        self.assertEqual(cleaner.clean_multiple_whitespaces(test1), "UUU Nice Lets Play Rock n Roll :))")
 
     def test_clean_beginning_punct(self):
         cleaner = Utilities()
         self.assertEqual("Sonnebrille und wech",cleaner.clean_dots_beginning_of_text("...Sonnebrille und wech"))
+
+    def test_multiple_dots(self):
+        cleaner = Utilities()
+        self.assertEqual('dass auto ist traumhaft.', cleaner.clean_multiple_dots('dass auto ist traumhaft........'))
+        test2 = "vom 13. bis 16. mai findet in Coburg das 34. BMW Veteranentreffen statt, Infos auch unter"
+        self.assertEqual(test2, cleaner.clean_multiple_dots(test2))
+
+    def test_clean_test(self):
+        cleaner = Utilities()
+        self.assertEqual('dass auto ist traumhaft.', cleaner.clean_text('dass auto ist traumhaft........'))
