@@ -5,8 +5,8 @@ import mysql.connector as mariadb
 import nltk.tokenize as nlp
 from langdetect.lang_detect_exception import LangDetectException
 
-from cleaner import urlmarker
-from cleaner.cleaners import check_language
+from utilities import urlmarker
+from utilities.utilities import check_language
 from config.config import local_host, local_user, local_password
 
 try:

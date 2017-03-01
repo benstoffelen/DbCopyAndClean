@@ -1,6 +1,6 @@
 # This Python file uses the following encoding: utf-8
 import unittest
-from cleaner.utilities import Utilities
+from utilities.utilities import Utilities
 
 
 class TestCleaners(unittest.TestCase):

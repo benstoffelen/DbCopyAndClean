@@ -2,7 +2,7 @@ import langdetect
 import re
 from langid.langid import LanguageIdentifier, model
 
-from cleaner import urlmarker
+from utilities import urlmarker
 
 
 class Utilities:
