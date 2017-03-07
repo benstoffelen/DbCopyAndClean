@@ -79,8 +79,10 @@ class Utilities:
     def clean_for_model(text):
         text = re.sub(r",", " , ", text)
         text = re.sub(r"!", " ! ", text)
-        text = re.sub(r"\?", " \? ", text)
+        text = re.sub(r"\?", " ? ", text)
         text = re.sub(r"\s{2,}", " ", text)
+        text = re.sub(r"\^\^", " ^^", text)
+        text = re.sub("\.", " .", text)
         return text.strip().lower()
 
     def clean_text(self, text):
@@ -90,5 +92,5 @@ class Utilities:
         text = self.clean_smileys(text)
         text = self.clean_dots_beginning_of_text(text)
         text = self.clean_multiple_whitespaces(text)
-        text = self.clean_for_model(text)
+        #text = self.clean_for_model(text)
         return text
