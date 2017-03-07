@@ -46,7 +46,15 @@ class Utilities:
     # TODO BeSt: maybe there is a database that can do this out of the box?
     @staticmethod
     def clean_smileys(text):
-        return re.sub(r'([\[\]@{]?[:;8]+[o-]?)([D)XBbdSs"(O\)\[\\pP?])+(?<=[D)XBbdSs"(O\)\[\\pP?])', r"\1\2", text)
+        text = re.sub(r'([\[\]@{]?[:;8]+[o-]?)([D)XBbdSs"(O\)\[\\pP?])+(?<=[D)XBbdSs"(O\)\[\\pP?])', r" \1\2 ", text)
+        myre = re.compile((u'('
+                           u'\ud83c[\udf00-\udfff]|'
+                           u'\ud83d[\udc00-\ude4f\ude80-\udeff]|'
+                           u'[\u2600-\u26FF\u2700-\u27BF])+'),
+                          re.UNICODE)
+        text = re.sub(myre, r' \1 ', text)
+        return re.sub(r'<3', ' <3 ', text)
+
 
     # Method to remove multiple whitespaces from text
     @staticmethod
@@ -75,14 +83,15 @@ class Utilities:
         text = language_check.correct(text, matches)
         print text
 
-    @staticmethod
-    def clean_for_model(text):
+
+    def clean_for_model(self, text):
         text = re.sub(r",", " , ", text)
         text = re.sub(r"!", " ! ", text)
         text = re.sub(r"\?", " ? ", text)
         text = re.sub(r"\s{2,}", " ", text)
         text = re.sub(r"\^\^", " ^^", text)
-        text = re.sub("\.", " .", text)
+        text = re.sub("\.", " . ", text)
+        self.clean_multiple_whitespaces(text)
         return text.strip().lower()
 
     def clean_text(self, text):
